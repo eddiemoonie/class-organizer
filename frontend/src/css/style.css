@@ -1,0 +1,123 @@
+body {
+  /* background-color: #00acee; */
+  background-color: #E8E6E0;
+  text-align: center;
+}
+
+/* Subject css */
+
+/* Style the tabs */
+#subject-tabs {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab */
+#subject-tabs button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+#subject-tabs button span {
+  display: none;
+}
+
+/* Style the add button */
+.add-button {
+  float: right;
+}
+
+/* Change background color of buttons on hover */
+#subject-tabs button:hover {
+  background-color: #ddd;
+}
+
+#subject-tabs button:hover span {
+  display: inline-block;
+}
+
+/* Create an active/current tablink class */
+#subject-tabs button.active {
+  background-color: #ccc;
+}
+
+#subject-form-container {
+  padding: 20px 150px 0px;
+  display: none;
+}
+
+
+/* Assignment css*/
+
+/* Style for assignment form */
+#assignment-form-container {
+  padding: 20px;
+  visibility: hidden;
+}
+
+input {
+  border: 2px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	min-width: 65%;
+	padding: 5px;
+	border: none;
+  background: #f1f1f1;
+  font-size: 20px;
+}
+
+/* Style the new assignment button */
+.enter {
+ border: none;
+ padding: 5px 15px;
+ border-radius: 5px;
+ /* color: #04A1BF; */
+ color: #000;
+ /* background-color: #025F70; */
+ background-color: #F3DB28;
+ transition: all 0.75s ease;
+ -webkit-transition: all 0.75s ease;
+ -moz-transition: all 0.75s ease;
+ -ms-transition: all 0.75s ease;
+ -o-transition: all 0.75 ease;
+ font-weight: normal;
+}
+
+/* Style the assignments list */
+ul {
+	text-align: left;
+	margin-top: 20px;
+  padding: 0px 200px;
+}
+
+
+li {
+	list-style: none;
+	padding: 10px 20px;
+	/* color: #ffffff; */
+  color: #000;
+	text-transform: capitalize;
+	font-weight: 600;
+	/* border: 2px solid #025f70; */
+  border: 2px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	/* background: #4EB9CD; */
+  background: #f1f1f1;
+	transition: all 0.75s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5 ease;
+}
+
+li:hover {
+	background: #76CFE0;
+}
