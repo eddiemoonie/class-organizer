@@ -12,13 +12,13 @@ class Api::V1::SubjectsController < ApplicationController
   def create
     subject = Subject.new(subject_params)
     subject.save
-    render json: subject
+    render json: SubjectSerializer.new(subject)
   end
 
   def destroy
     subject = Subject.find_by_id(params[:id])
     subject.destroy
-    render json: subject
+    render json: SubjecSerializer.new(subject)
   end
 
   private

@@ -1,6 +1,10 @@
 class Api::V1::AssignmentsController < ApplicationController
   def index
-    assignments = Assignment.all
+    if params[:subject_id]
+      assignments = Subject.find(params[:subject_id]).assignments
+    else
+      assignments = Assignment.all
+    end
     render json: AssignmentSerializer.new(assignments)
   end
 
@@ -12,14 +16,13 @@ class Api::V1::AssignmentsController < ApplicationController
   def create
     assignment = Assignment.new(assignment_params)
     # subjects = Subject.all
-    assignment.save
-    render json: assignment
+    render json: AssignmentSerializer.new(assignment)
   end
 
   def destroy
     assignment = Assignment.find_by_id(params[:id])
     assignment.destroy
-    render json: assignment
+    render json: AssignmentSerializer.new(assignment)
   end
 
   private
