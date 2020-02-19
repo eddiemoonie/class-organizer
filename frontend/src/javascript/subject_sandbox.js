@@ -27,11 +27,14 @@ class Subject {
     // subject tab event listener
     button.addEventListener('click', e => {
       e.preventDefault();
-      this.renderSubject()
       // subjectTabs.textContent = ''
       // fetchSubjects();
-      assignList.textContent = ''
-      // fetchAssignments(`${this.id}`)
+      console.log(`${this.name}`)
+      this.renderSubject()
+      // this.renderSubject()
+      // subjectTabs.textContent = ''
+      // fetchSubjects();
+      // assignList.textContent = ''
     })
 
     // delete subject
@@ -52,7 +55,6 @@ class Subject {
   }
 
   renderSubject() {
-
     console.log(`rendering ${this.name}`)
 
     // render subject header
@@ -85,6 +87,7 @@ class Subject {
       return fetch(ASSIGNMENTS_URL, configObj)
         .then(parseJSON)
         .then(assign => {
+          debugger
           let newAssign = new Assignment(assign.name, assign.subject_id, assign.id)
           console.log(newAssign)
           // allAssign.push(newAssign);
@@ -100,6 +103,10 @@ class Subject {
         })
         .then(clearAssignForm)
     })
+  }
+
+  addAssignment() {
+
   }
 }
 

@@ -25,6 +25,7 @@ class Assignment {
 }
 
 function fetchAssignments(subject_id) {
+  assignList.textContent = ''
   fetch(ASSIGNMENTS_URL)
     .then(parseJSON)
     .then(json => json.data.forEach(assign => {
