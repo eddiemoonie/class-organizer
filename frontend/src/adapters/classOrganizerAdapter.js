@@ -25,6 +25,12 @@ class classOrganizerAdapter {
     }).then(res => res.json());
   }
 
+  delSubject(subjectId) {
+    return fetch(this.baseURL + `/subjects/${subjectId}`, {
+      method: "DELETE"
+    }).then(res => res.json());
+  }
+
   // createAssignments(assignment) {
   //   return fetch(this.baseURL = "/subjects" + id )
   // }

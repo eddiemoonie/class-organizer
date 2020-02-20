@@ -6,7 +6,7 @@ class Subject {
   }
 
   renderTab() {
-    return `<button data-id=${this.id} class="tablinks">
+    return `<button id=${this.id} class="tablinks">
               ${this.name}
               <span id="delete-subject-${this.id}" class="glyphicon glyphicon-remove-circle" data-subject-id="${this.id}"></span>
             </button>`
