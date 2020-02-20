@@ -31,7 +31,13 @@ class classOrganizerAdapter {
     }).then(res => res.json());
   }
 
-  // createAssignments(assignment) {
-  //   return fetch(this.baseURL = "/subjects" + id )
-  // }
+  createAssignment(assignment) {
+    return fetch(this.baseURL + "/assignments", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(assignment)
+    }).then(res => res.json())
+  }
 }

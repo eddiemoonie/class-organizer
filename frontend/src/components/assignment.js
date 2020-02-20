@@ -1,3 +1,15 @@
+class Assignment {
+  constructor(assignmentJSON) {
+    this.id = assignmentJSON.id
+    this.name = assignmentJSON.attributes.name
+  }
+
+  render() {
+    return `
+    <li class="assignment">${this.name}</li>`
+  }
+}
+
 function renderAssignmentForm() {
   console.log('rendering form')
 

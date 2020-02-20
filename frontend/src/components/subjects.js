@@ -7,6 +7,7 @@ class Subjects {
   }
 
   initBindingAndEventListeners() {
+    //subjects
     this.subjectTabs = document.getElementById("subjects")
     this.subjectFormCont = document.getElementById("subject-form-container")
     this.subjectForm = document.getElementById("subject-form")
@@ -40,6 +41,12 @@ class Subjects {
     })
     this.subjectForm.addEventListener("submit", e => {
       this.createSubject(e)
+    })
+
+    //assignments
+    this.assignForm = document.getElementById('assignment-form')
+    this.assignForm.addEventListener("submit", e => {
+      this.createAssignment(e)
     })
   }
 
@@ -91,9 +98,28 @@ class Subjects {
         this.subjects.push(newSubject)
         this.render()
         newSubject.renderBody()
+        debugger
       })
       .then(clearSubjectForm)
       .then(this.renderFormBtn.click())
+  }
+
+  createAssignment(e) {
+    e.preventDefault();
+    const assignment = {
+      name: e.target.name.value,
+      subject_id: this.subjectId
+    }
+    const subject = this.subjects.find(
+      subject => subject.id === assignment.subject_id
+    )
+    this.adapter
+      .createAssignment(assignment)
+      .then(assignment => {
+        subject.assignments.push(new Assignment(assignment.data))
+        debugger
+      })
+      .then(() => subject.renderAssignments())
   }
 
   delSubject(subject) {

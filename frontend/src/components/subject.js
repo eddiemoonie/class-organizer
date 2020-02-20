@@ -22,6 +22,21 @@ class Subject {
     // render assignment form
     renderAssignmentForm();
   }
+
+  renderAssignments() {
+    console.log("rendering assignments")
+
+    const assignList = document.getElementById('assignments')
+    assignList.innerHTML = this.assignments
+      .map(assignment => assignment.render())
+      .join(" ")
+    // let assignLi = document.createElement('li')
+    //
+    // assignLi.className = 'assignment'
+    // assignLi.textContent = `${this.name}`
+    //
+    // assignList.append(assignLi)
+  }
 }
 
 function clearSubjectForm() {
