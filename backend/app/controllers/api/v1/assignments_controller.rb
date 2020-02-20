@@ -14,7 +14,7 @@ class Api::V1::AssignmentsController < ApplicationController
   end
 
   def create
-    assignment = Assignment.new(assignment_params)
+    assignment = Assignment.create(assignment_params)
     # subjects = Subject.all
     render json: AssignmentSerializer.new(assignment)
   end

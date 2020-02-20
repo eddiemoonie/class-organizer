@@ -10,8 +10,7 @@ class Api::V1::SubjectsController < ApplicationController
   end
 
   def create
-    subject = Subject.new(subject_params)
-    subject.save
+    subject = Subject.create(subject_params)
     render json: SubjectSerializer.new(subject)
   end
 
