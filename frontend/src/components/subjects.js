@@ -20,8 +20,8 @@ class Subjects {
         this.delSubject(this.delSubjectId)
       } else if(this.subjectId){
         this.selectSubject(this.subjectId)
+        this.fetchAndLoadAssignments(this.subjectId)
       }
-
       // this.fetchAndLoadAssignments(this.subjectId);
     })
 
@@ -52,6 +52,21 @@ class Subjects {
         })
       })
       .then(() => this.render())
+  }
+
+  fetchAndLoadAssignments(subjectId) {
+    const subject = this.subjects.find(
+      subject => subject.id === subjectId
+    )
+
+    const assignments = this.adapter
+      .getAssignments(subjectId)
+      .then(json => {
+        json.data.forEach(assignment =>
+          subject.assignments.push(new Assignment(assignment))
+        )
+      })
+      .then(() => subject.renderAssignments())
   }
 
   render() {
