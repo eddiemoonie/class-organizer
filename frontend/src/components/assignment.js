@@ -29,3 +29,7 @@ function closeAssignmentForm() {
     assignForm.style.visibility = 'hidden'
   }
 }
+
+function clearAssignmentForm() {
+  document.querySelector('.assignment-input').value = ""
+}

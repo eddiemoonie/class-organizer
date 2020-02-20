@@ -11,8 +11,9 @@ class classOrganizerAdapter {
     return fetch(this.baseURL + "/subjects/" + id).then(res => res.json());
   }
 
-  getAssignments(id) {
-    return fetch(this.baseURL + "/subjects/" + id + "/assignments").then(res => res.json());
+  getAssignments() {
+    // return fetch(this.baseURL + "/subjects/" + id + "/assignments").then(res => res.json());
+    return fetch(this.baseURL + "/assignments").then(res => res.json());
   }
 
   createSubject(subject) {

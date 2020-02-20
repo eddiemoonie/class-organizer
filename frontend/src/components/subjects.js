@@ -21,7 +21,7 @@ class Subjects {
         this.delSubject(this.delSubjectId)
       } else if(this.subjectId){
         this.selectSubject(this.subjectId)
-        this.fetchAndLoadAssignments(this.subjectId)
+        // this.fetchAndLoadAssignments(this.subjectId)
       }
       // this.fetchAndLoadAssignments(this.subjectId);
     })
@@ -44,6 +44,7 @@ class Subjects {
     })
 
     //assignments
+    this.assignList = document.getElementById('assignments')
     this.assignForm = document.getElementById('assignment-form')
     this.assignForm.addEventListener("submit", e => {
       this.createAssignment(e)
@@ -67,11 +68,14 @@ class Subjects {
     )
 
     const assignments = this.adapter
-      .getAssignments(subjectId)
+      .getAssignments()
       .then(json => {
-        json.data.forEach(assignment =>
-          subject.assignments.push(new Assignment(assignment))
-        )
+        subject.assignments = []
+        let assignList = []
+        assignList = json.data.filter(assignment => assignment.relationships.subject.data.id === subjectId)
+        assignList.forEach(assign => {
+          subject.assignments.push(new Assignment(assign))
+        })
       })
       .then(() => subject.renderAssignments())
   }
@@ -117,9 +121,9 @@ class Subjects {
       .createAssignment(assignment)
       .then(assignment => {
         subject.assignments.push(new Assignment(assignment.data))
-        debugger
       })
       .then(() => subject.renderAssignments())
+      .then(clearAssignmentForm)
   }
 
   delSubject(subject) {
@@ -142,5 +146,6 @@ class Subjects {
         this.subjectHead.innerHTML = subject.data.attributes.name
       })
       .then(renderAssignmentForm)
+      .then(this.fetchAndLoadAssignments(subject))
   }
 }
