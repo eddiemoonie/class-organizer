@@ -11,20 +11,17 @@ class Subjects {
     this.subjectFormCont = document.getElementById("subject-form-container")
     this.subjectForm = document.getElementById("subject-form")
     this.subjectHead = document.getElementById("subject-head")
-
     this.subjectTabs.addEventListener("click", e => {
 
-      this.subjectId = e.target.dataset.id;
-      this.delSubjectId = e.target.id
-
-      let subject = this.delSubjectId.replace("delete-subject-","")
+      this.subjectId = e.target.id;
+      this.delSubjectId = e.target.dataset.subjectId
 
       if(this.delSubjectId) {
-        this.delSubject(subject)
+        this.delSubject(this.delSubjectId)
+      } else if(this.subjectId){
+        this.selectSubject(this.subjectId)
       }
 
-
-      // this.selectSubject(this.subjectId);
       // this.fetchAndLoadAssignments(this.subjectId);
     })
 
@@ -85,10 +82,6 @@ class Subjects {
   }
 
   delSubject(subject) {
-    // e.preventDefault();
-    // const subject = {
-    //   id: e.target.dataset.subjectId
-    // }
     this.adapter
       .delSubject(subject)
       .then(() => {
@@ -97,8 +90,16 @@ class Subjects {
         object.remove()
         this.subjectHead.innerHTML = ""
       })
-      // .then(function (json) {
-      //   e.target.parentNode.remove();
-      // })
+      .then(closeAssignmentForm)
+  }
+
+  selectSubject(subject) {
+    console.log(subject)
+    this.adapter
+      .getSubject(subject)
+      .then(subject => {
+        this.subjectHead.innerHTML = subject.data.attributes.name
+      })
+      .then(renderAssignmentForm)
   }
 }
