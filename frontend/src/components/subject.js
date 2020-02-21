@@ -8,7 +8,7 @@ class Subject {
   renderTab() {
     return `<button id=${this.id} class="tablinks">
               ${this.name}
-              <span id="delete-subject-${this.id}" class="glyphicon glyphicon-remove-circle" data-subject-id="${this.id}"></span>
+              <span id="delete-subject-${this.id}" class="glyphicon glyphicon-remove" data-subject-id="${this.id}"></span>
             </button>`
   }
 

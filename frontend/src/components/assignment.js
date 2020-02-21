@@ -6,7 +6,7 @@ class Assignment {
 
   render() {
     return `
-    <li class="assignment">${this.name}</li>`
+    <li class="assignment">${this.name}<span id="delete-assignment-${this.id}" class="glyphicon glyphicon-trash" data-assignment-id="${this.id}"></span></li>`
   }
 }
 

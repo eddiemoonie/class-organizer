@@ -21,9 +21,7 @@ class Subjects {
         this.delSubject(this.delSubjectId)
       } else if(this.subjectId){
         this.selectSubject(this.subjectId)
-        // this.fetchAndLoadAssignments(this.subjectId)
       }
-      // this.fetchAndLoadAssignments(this.subjectId);
     })
 
     this.renderFormBtn = document.getElementById('render-form-button');
@@ -71,6 +69,7 @@ class Subjects {
       .getAssignments()
       .then(json => {
         subject.assignments = []
+
         let assignList = []
         assignList = json.data.filter(assignment => assignment.relationships.subject.data.id === subjectId)
         assignList.forEach(assign => {
@@ -102,7 +101,7 @@ class Subjects {
         this.subjects.push(newSubject)
         this.render()
         newSubject.renderBody()
-        debugger
+        this.fetchAndLoadAssignments(newSubject.id)
       })
       .then(clearSubjectForm)
       .then(this.renderFormBtn.click())

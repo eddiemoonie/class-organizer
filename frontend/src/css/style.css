@@ -39,6 +39,7 @@ body {
 }
 
 #subject-tabs button:hover span {
+  padding-left: 12px;
   display: inline-block;
 }
 
@@ -120,4 +121,13 @@ li {
 
 li:hover {
 	background: #76CFE0;
+}
+
+#assignments li span {
+  display: none;
+}
+
+#assignments li:hover span {
+  display: inline-block;
+  float: right;
 }
