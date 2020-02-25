@@ -17,15 +17,12 @@ class Subjects {
       this.subjectId = e.target.id;
       this.delSubjectId = e.target.dataset.subjectId
 
-      if(this.subjectId) {
-        this.selectSubject(this.subjectId)
-      } else if(this.delSubjectId) {
+      if(!!this.delSubjectId) {
         this.delSubject(this.delSubjectId)
+      } else if(this.subjectId) {
+        this.selectSubject(this.subjectId)
       }
-
-      debugger
     })
-
     this.renderFormBtn = document.getElementById('render-form-button');
     this.renderFormBtn.addEventListener("click", e => {
       console.log('add class button was clicked')
@@ -113,7 +110,6 @@ class Subjects {
 
   createAssignment(e) {
     e.preventDefault();
-    debugger
     const assignment = {
       name: e.target.name.value,
       subject_id: e.target[0].value
@@ -124,7 +120,6 @@ class Subjects {
     this.adapter
       .createAssignment(assignment)
       .then(assignment => {
-        debugger
         subject.assignments.push(new Assignment(assignment.data))
       })
       .then(() => subject.renderAssignments())
@@ -139,6 +134,7 @@ class Subjects {
         let object = document.getElementById(subject)
         object.remove()
         this.subjectHead.innerHTML = ""
+        this.assignList.innerHTML = ""
       })
       .then(closeAssignmentForm)
   }
@@ -148,7 +144,6 @@ class Subjects {
       .getSubject(subject)
       .then(subject => {
         this.subjectHead.innerHTML = subject.data.attributes.name
-
         const id = document.getElementById("subject-id")
         id.value = subject.data.id
       })

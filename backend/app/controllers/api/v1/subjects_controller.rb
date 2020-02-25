@@ -16,6 +16,9 @@ class Api::V1::SubjectsController < ApplicationController
 
   def destroy
     subject = Subject.find_by_id(params[:id])
+    subject.assignments.each do |assignment|
+      assignment.destroy
+    end
     subject.destroy
     render json: SubjectSerializer.new(subject)
   end
