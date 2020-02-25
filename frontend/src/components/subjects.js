@@ -44,6 +44,9 @@ class Subjects {
     this.assignList = document.getElementById('assignments')
     this.assignList.addEventListener("click", e => {
       this.delAssignmentId = e.target.dataset.assignmentId
+      if(!!this.delAssignmentId) {
+        this.delAssignment(this.delAssignmentId)
+      }
     })
     this.assignForm = document.getElementById('assignment-form')
     this.assignForm.addEventListener("submit", e => {
@@ -137,6 +140,15 @@ class Subjects {
         this.assignList.innerHTML = ""
       })
       .then(closeAssignmentForm)
+  }
+
+  delAssignment(assignment) {
+    this.adapter
+      .delAssignment(assignment)
+      .then(() => {
+        let assignLi = document.getElementById(`assign-${assignment}`)
+        assignLi.remove()
+      })
   }
 
   selectSubject(subject) {

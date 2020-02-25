@@ -41,4 +41,10 @@ class classOrganizerAdapter {
       body: JSON.stringify(assignment)
     }).then(res => res.json())
   }
+
+  delAssignment(assignmentId) {
+    return fetch(this.baseURL + `/assignments/${assignmentId}`, {
+      method: "DELETE"
+    }).then(res => res.json());
+  }
 }
