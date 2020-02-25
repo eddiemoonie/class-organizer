@@ -30,12 +30,6 @@ class Subject {
     assignList.innerHTML = this.assignments
       .map(assignment => assignment.render())
       .join(" ")
-    // let assignLi = document.createElement('li')
-    //
-    // assignLi.className = 'assignment'
-    // assignLi.textContent = `${this.name}`
-    //
-    // assignList.append(assignLi)
   }
 }
 
