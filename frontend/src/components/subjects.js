@@ -17,11 +17,13 @@ class Subjects {
       this.subjectId = e.target.id;
       this.delSubjectId = e.target.dataset.subjectId
 
-      if(this.delSubjectId) {
-        this.delSubject(this.delSubjectId)
-      } else if(this.subjectId){
+      if(this.subjectId) {
         this.selectSubject(this.subjectId)
+      } else if(this.delSubjectId) {
+        this.delSubject(this.delSubjectId)
       }
+
+      debugger
     })
 
     this.renderFormBtn = document.getElementById('render-form-button');
@@ -43,6 +45,9 @@ class Subjects {
 
     //assignments
     this.assignList = document.getElementById('assignments')
+    this.assignList.addEventListener("click", e => {
+      this.delAssignmentId = e.target.dataset.assignmentId
+    })
     this.assignForm = document.getElementById('assignment-form')
     this.assignForm.addEventListener("submit", e => {
       this.createAssignment(e)
@@ -100,8 +105,7 @@ class Subjects {
         let newSubject = new Subject(subject.data)
         this.subjects.push(newSubject)
         this.render()
-        newSubject.renderBody()
-        this.fetchAndLoadAssignments(newSubject.id)
+        this.selectSubject(newSubject.id)
       })
       .then(clearSubjectForm)
       .then(this.renderFormBtn.click())
@@ -109,9 +113,10 @@ class Subjects {
 
   createAssignment(e) {
     e.preventDefault();
+    debugger
     const assignment = {
       name: e.target.name.value,
-      subject_id: this.subjectId
+      subject_id: e.target[0].value
     }
     const subject = this.subjects.find(
       subject => subject.id === assignment.subject_id
@@ -119,6 +124,7 @@ class Subjects {
     this.adapter
       .createAssignment(assignment)
       .then(assignment => {
+        debugger
         subject.assignments.push(new Assignment(assignment.data))
       })
       .then(() => subject.renderAssignments())
@@ -138,11 +144,13 @@ class Subjects {
   }
 
   selectSubject(subject) {
-    console.log(subject)
     this.adapter
       .getSubject(subject)
       .then(subject => {
         this.subjectHead.innerHTML = subject.data.attributes.name
+
+        const id = document.getElementById("subject-id")
+        id.value = subject.data.id
       })
       .then(renderAssignmentForm)
       .then(this.fetchAndLoadAssignments(subject))
