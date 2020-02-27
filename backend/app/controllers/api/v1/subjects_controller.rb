@@ -14,6 +14,12 @@ class Api::V1::SubjectsController < ApplicationController
     render json: SubjectSerializer.new(subject)
   end
 
+  def update
+    subject = Subject.find_by(:id => params[:id])
+    subject.update(subject_params)
+    render json: SubjectSerializer.new(subject)
+  end
+
   def destroy
     subject = Subject.find_by_id(params[:id])
     subject.assignments.each do |assignment|
