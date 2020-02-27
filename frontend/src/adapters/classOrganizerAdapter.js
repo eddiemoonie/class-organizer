@@ -26,6 +26,16 @@ class classOrganizerAdapter {
     }).then(res => res.json());
   }
 
+  updateSubject(id, newSubject) {
+    return fetch(this.baseURL + "/subjects/" + id, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(newSubject)
+    }).then(res => res.json())
+  }
+
   delSubject(subjectId) {
     return fetch(this.baseURL + `/subjects/${subjectId}`, {
       method: "DELETE"

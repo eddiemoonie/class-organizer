@@ -30,14 +30,22 @@
       </form>
     </div>
 
-    <div class="class-header">
+    <div id="subject-edit-container">
+      <form id="subject-edit-form" action="index.html" method="put">
+        <input type="hidden" id="edit-subject-id" value="">
+        <input id="edit-input" class="subject-input" type="text" name="name" value="" placeholder="Edit subject...">
+        <button id="edit-subject-button" type="submit" class="enter"><i class="fa fa-pencil" style="font-size:20px"></i></button>
+      </form>
+    </div>
+
+    <div id="class-header">
       <h2 id="subject-head"></h2>
     </div>
 
     <div id="assignment-form-container">
       <form id="assignment-form" action="index.html" method="post">
         <!-- add subject id assignment -->
-        <input type="hidden" id="subject-id">
+        <input type="hidden" id="subject-id" value="">
         <input class="assignment-input" type="text" name="name" placeholder="New assignment...">
         <!-- <input type="submit" name="submit" value="Add Assignment"> -->
         <button id="add-assignment-button" class="enter"><i class="fa fa-pencil" style="font-size:20px"></i></button>

@@ -12,6 +12,17 @@ class Subjects {
     this.subjectFormCont = document.getElementById("subject-form-container")
     this.subjectForm = document.getElementById("subject-form")
     this.subjectHead = document.getElementById("subject-head")
+    this.subjectHead.addEventListener("click", e => {
+      this.editSubjectId = e.target.id.slice(7)
+      this.renderUpdateForm(this.editSubjectId)
+    })
+
+    this.subjectEditFormCont = document.getElementById("subject-edit-container")
+    this.subjectEditForm = document.getElementById("subject-edit-form")
+    this.subjectEditForm.addEventListener("submit", e => {
+      this.editSubject(e)
+    })
+
     this.subjectTabs.addEventListener("click", e => {
 
       this.subjectId = e.target.id;
@@ -129,10 +140,42 @@ class Subjects {
       .then(clearAssignmentForm)
   }
 
+  //update
+  renderUpdateForm(subject) {
+    if (this.subjectEditFormCont.style.display === "none") {
+      this.adapter
+      .getSubject(subject)
+      .then(subject => {
+        this.subjectEditFormCont.style.display = "block"
+        let editSubjectObj = document.getElementById("edit-subject-id")
+        editSubjectObj.value = subject.data.id
+      })
+    } else {
+      this.subjectEditFormCont.style.display = "none"
+    }
+  }
+
+  editSubject(e) {
+    e.preventDefault();
+    const subject = {
+      name: e.target.name.value
+    }
+    this.adapter
+      .updateSubject(e.target[0].value, subject)
+      .then(() => {
+        let subjectTab = document.getElementById(e.target[0].value)
+        subjectTab.innerHTML = `${subject.name} <span id="delete-subject-${e.target[0].value}" class="glyphicon glyphicon-remove" data-subject-id="${e.target[0].value}"></span>
+      </button>`
+      this.selectSubject(e.target[0].value)
+      })
+      .then(clearEditSubjectForm)
+  }
+
   delSubject(subject) {
     this.adapter
       .delSubject(subject)
       .then(() => {
+        this.subjectEditFormCont.style.display = "none"
         this.subjects = this.subjects.filter(obj => obj.id !== subject)
         let object = document.getElementById(subject)
         object.remove()
@@ -155,9 +198,12 @@ class Subjects {
     this.adapter
       .getSubject(subject)
       .then(subject => {
-        this.subjectHead.innerHTML = subject.data.attributes.name
-        const id = document.getElementById("subject-id")
-        id.value = subject.data.id
+        this.subjectEditFormCont.style.display = "none"
+        this.subjectHead.innerHTML = `${subject.data.attributes.name}  <button type="button" id="edit-btn" class="btn btn-default btn-sm"><span id="update-${subject.data.id}" class="glyphicon glyphicon-edit"></span></button>`
+        // const id = document.getElementById("subject-id")
+        // id.value = subject.data.id
+        let subjectObj = document.getElementById("subject-id")
+        subjectObj.value = subject.data.id
       })
       .then(renderAssignmentForm)
       .then(this.fetchAndLoadAssignments(subject))

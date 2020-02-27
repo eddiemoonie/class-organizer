@@ -40,3 +40,7 @@ function clearSubjectForm() {
 function clickAddClass() {
   renderFormBtn.click()
 }
+
+function clearEditSubjectForm() {
+  document.getElementById('edit-input').value = ""
+}

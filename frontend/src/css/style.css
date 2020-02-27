@@ -53,6 +53,39 @@ body {
   display: none;
 }
 
+/* .glyphicon.glyphicon-edit {
+  display: none;
+  font-size: 15px;
+} */
+
+#subject-edit-container {
+  padding: 20px 150px 0px;
+  display: none;
+}
+
+#subject-head button {
+  display: none;
+}
+
+#subject-head:hover button {
+  /* padding-left: 12px; */
+  display: inline-block;
+  background-color: #F3DB28;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  /* color: #04A1BF; */
+  color: #000;
+  /* background-color: #025F70; */
+  background-color: #F3DB28;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  -ms-transition: all 0.75s ease;
+  -o-transition: all 0.75 ease;
+  font-weight: normal;
+}
+
 
 /* Assignment css*/
 
