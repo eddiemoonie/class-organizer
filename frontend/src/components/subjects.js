@@ -101,10 +101,6 @@ class Subjects {
       .join(" ")
   }
 
-  clearSubjectForm() {
-    document.querySelector('.subject-input').value = ""
-  }
-
   createSubject(e) {
     e.preventDefault();
     const subject = {
@@ -115,6 +111,7 @@ class Subjects {
       .then(subject => {
         let newSubject = new Subject(subject.data)
         this.subjects.push(newSubject)
+        debugger
         this.render()
         this.selectSubject(newSubject.id)
       })
@@ -162,12 +159,14 @@ class Subjects {
     }
     this.adapter
       .updateSubject(e.target[0].value, subject)
-      .then(() => {
-        let subjectTab = document.getElementById(e.target[0].value)
-        subjectTab.innerHTML = `${subject.name} <span id="delete-subject-${e.target[0].value}" class="glyphicon glyphicon-remove" data-subject-id="${e.target[0].value}"></span>
-      </button>`
-      this.selectSubject(e.target[0].value)
+      .then((e) => {
+        // this.subjects = this.subjects.filter(subject => subject.id !== e.data.id)
+        let newSubject = new Subject(e.data)
+        let index = this.subjects.findIndex(subject => subject.id === e.data.id)
+        this.subjects.splice(index, 1, newSubject)
+        this.render()
       })
+      .then(this.selectSubject(e.target[0].value))
       .then(clearEditSubjectForm)
   }
 
