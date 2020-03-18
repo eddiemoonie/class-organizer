@@ -7,6 +7,9 @@ class Subjects {
   }
 
   initBindingAndEventListeners() {
+    this.alertBox = document.getElementById("alert-box")
+    this.message = document.getElementById("message")
+    this.closeMessage = document.getElementById("close-message")
     //subjects
     this.subjectTabs = document.getElementById("subjects")
     this.subjectFormCont = document.getElementById("subject-form-container")
@@ -16,18 +19,14 @@ class Subjects {
       this.editSubjectId = e.target.id.slice(7)
       this.renderUpdateForm(this.editSubjectId)
     })
-
     this.subjectEditFormCont = document.getElementById("subject-edit-container")
     this.subjectEditForm = document.getElementById("subject-edit-form")
     this.subjectEditForm.addEventListener("submit", e => {
       this.editSubject(e)
     })
-
     this.subjectTabs.addEventListener("click", e => {
-
       this.subjectId = e.target.id;
       this.delSubjectId = e.target.dataset.subjectId
-
       if(!!this.delSubjectId) {
         this.delSubject(this.delSubjectId)
       } else if(this.subjectId) {
@@ -48,7 +47,13 @@ class Subjects {
       }
     })
     this.subjectForm.addEventListener("submit", e => {
-      this.createSubject(e)
+      e.preventDefault()
+      if (e.target[0].value !== "") {
+        this.createSubject(e)
+        // this.alertBox.innerHTML =  `<p id="message">${e.target[0].value} has been added <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${this.id}"></span></p>`
+      } else {
+        this.alertBox.innerHTML = `<p id="message">Please enter subject name <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${this.id}"></span></p>`
+      }
     })
 
     //assignments
@@ -61,7 +66,9 @@ class Subjects {
     })
     this.assignForm = document.getElementById('assignment-form')
     this.assignForm.addEventListener("submit", e => {
-      this.createAssignment(e)
+      if (e.target[1].value) {
+        this.createAssignment(e)
+      }
     })
   }
 
@@ -96,13 +103,14 @@ class Subjects {
   }
 
   render() {
+    this.subjects.sort((a, b) => a.id - b.id)
     this.subjectTabs.innerHTML = this.subjects
       .map(subject => subject.renderTab())
       .join(" ")
   }
 
   createSubject(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const subject = {
       name: e.target.name.value
     }
@@ -111,9 +119,9 @@ class Subjects {
       .then(subject => {
         let newSubject = new Subject(subject.data)
         this.subjects.push(newSubject)
-        debugger
         this.render()
         this.selectSubject(newSubject.id)
+        this.alertBox.innerHTML =  `<p id="message">${newSubject.name} has been added <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${newSubject.id}"></span></p>`
       })
       .then(clearSubjectForm)
       .then(this.renderFormBtn.click())
@@ -194,9 +202,15 @@ class Subjects {
   }
 
   selectSubject(subject) {
+    debugger
     this.adapter
       .getSubject(subject)
       .then(subject => {
+        debugger
+        if (this.closeMessage !== null && subject !== this.closeMessage.attributes[3].value) {
+          debugger
+          closeAlert
+        }
         this.subjectEditFormCont.style.display = "none"
         this.subjectHead.innerHTML = `${subject.data.attributes.name}  <button type="button" id="edit-btn" class="btn btn-default btn-sm"><span id="update-${subject.data.id}" class="glyphicon glyphicon-edit"></span></button>`
         // const id = document.getElementById("subject-id")

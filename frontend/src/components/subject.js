@@ -44,3 +44,9 @@ function clickAddClass() {
 function clearEditSubjectForm() {
   document.getElementById('edit-input').value = ""
 }
+
+function closeAlert() {
+  console.log('click')
+  const message = document.getElementById("message")
+  message.style.display = "none"
+}
