@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="agenda-header">
-      <h1>Testing</h1>
+      <h1>School Agenda</h1>
     </div>
 
     <div id="subject-tabs">
@@ -29,7 +29,6 @@
     <div id="subject-form-container">
       <form id="subject-form" action="index.html" method="post">
         <input class="subject-input" type="text" name="name" placeholder="New subject...">
-        <!-- <input class="submit" type="submit" name="submit" value="Add Subject"> -->
         <button id="add-subject-button" type="submit" class="enter"><i class="fa fa-pencil" style="font-size:20px"></i></button>
       </form>
     </div>
@@ -48,10 +47,8 @@
 
     <div id="assignment-form-container">
       <form id="assignment-form" action="index.html" method="post">
-        <!-- add subject id assignment -->
         <input type="hidden" id="subject-id" value="">
         <input class="assignment-input" type="text" name="name" placeholder="New assignment...">
-        <!-- <input type="submit" name="submit" value="Add Assignment"> -->
         <button id="add-assignment-button" class="enter"><i class="fa fa-pencil" style="font-size:20px"></i></button>
       </form>
     </div>
@@ -70,6 +67,5 @@
     <script type="text/javascript" src="src/components/app.js"></script>
     <script type="text/javascript" src="src/adapters/classOrganizerAdapter.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
-    <!-- <script type="text/javascript" src="src/javascript/service/api.js"></script> -->
   </body>
 </html>

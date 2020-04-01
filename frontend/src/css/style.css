@@ -6,7 +6,8 @@ body {
 
 #alert-box {
   display: inline-block;
-  padding-top: 15px;
+  padding-top: 20px;
+  height: 65px;
 }
 
 #message {

@@ -50,7 +50,6 @@ class Subjects {
       e.preventDefault()
       if (e.target[0].value !== "") {
         this.createSubject(e)
-        // this.alertBox.innerHTML =  `<p id="message">${e.target[0].value} has been added <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${this.id}"></span></p>`
       } else {
         this.alertBox.innerHTML = `<p id="message">Please enter subject name <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${this.id}"></span></p>`
       }
@@ -121,7 +120,10 @@ class Subjects {
         this.subjects.push(newSubject)
         this.render()
         this.selectSubject(newSubject.id)
-        this.alertBox.innerHTML =  `<p id="message">${newSubject.name} has been added <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${newSubject.id}"></span></p>`
+        this.alertBox.innerHTML =  `<p id="message">${newSubject.name} has been added</p>`
+        //close button if needed
+        // <span id="close-message" class="glyphicon glyphicon-remove-circle" onclick=closeAlert() data-subject-id="${newSubject.id}"></span>
+        setTimeout(closeAlert, 3000)
       })
       .then(clearSubjectForm)
       .then(this.renderFormBtn.click())
@@ -139,7 +141,11 @@ class Subjects {
     this.adapter
       .createAssignment(assignment)
       .then(assignment => {
-        subject.assignments.push(new Assignment(assignment.data))
+        let newAssign = new Assignment(assignment.data)
+        subject.assignments.push(newAssign)
+        //new stuff
+        this.alertBox.innerHTML =  `<p id="message">${newAssign.name} has been added</p>`
+        setTimeout(closeAlert, 3000)
       })
       .then(() => subject.renderAssignments())
       .then(clearAssignmentForm)
@@ -168,11 +174,13 @@ class Subjects {
     this.adapter
       .updateSubject(e.target[0].value, subject)
       .then((e) => {
-        // this.subjects = this.subjects.filter(subject => subject.id !== e.data.id)
         let newSubject = new Subject(e.data)
         let index = this.subjects.findIndex(subject => subject.id === e.data.id)
         this.subjects.splice(index, 1, newSubject)
         this.render()
+        this.alertBox.innerHTML =  `<p id="message">${newSubject.name} has been edited</p>`
+        setTimeout(closeAlert, 3000)
+
       })
       .then(this.selectSubject(e.target[0].value))
       .then(clearEditSubjectForm)
@@ -185,9 +193,12 @@ class Subjects {
         this.subjectEditFormCont.style.display = "none"
         this.subjects = this.subjects.filter(obj => obj.id !== subject)
         let object = document.getElementById(subject)
+        let deletedObj = object.innerText
         object.remove()
         this.subjectHead.innerHTML = ""
         this.assignList.innerHTML = ""
+        this.alertBox.innerHTML =  `<p id="message">${deletedObj}has been deleted</p>`
+        setTimeout(closeAlert, 3000)
       })
       .then(closeAssignmentForm)
   }
@@ -197,24 +208,21 @@ class Subjects {
       .delAssignment(assignment)
       .then(() => {
         let assignLi = document.getElementById(`assign-${assignment}`)
+        let deletedAssign = assignLi.innerText
         assignLi.remove()
+        this.alertBox.innerHTML =  `<p id="message">${deletedAssign} has been deleted</p>`
+        setTimeout(closeAlert, 3000)
+        let subject = this.subjects.find(subject => subject.assignments.find(assign => assign.id === assignment))
+        this.selectSubject(subject.id)
       })
   }
 
   selectSubject(subject) {
-    debugger
     this.adapter
       .getSubject(subject)
       .then(subject => {
-        debugger
-        if (this.closeMessage !== null && subject !== this.closeMessage.attributes[3].value) {
-          debugger
-          closeAlert
-        }
         this.subjectEditFormCont.style.display = "none"
         this.subjectHead.innerHTML = `${subject.data.attributes.name}  <button type="button" id="edit-btn" class="btn btn-default btn-sm"><span id="update-${subject.data.id}" class="glyphicon glyphicon-edit"></span></button>`
-        // const id = document.getElementById("subject-id")
-        // id.value = subject.data.id
         let subjectObj = document.getElementById("subject-id")
         subjectObj.value = subject.data.id
       })

@@ -48,5 +48,5 @@ function clearEditSubjectForm() {
 function closeAlert() {
   console.log('click')
   const message = document.getElementById("message")
-  message.style.display = "none"
+  message.style.visibility = "hidden"
 }
