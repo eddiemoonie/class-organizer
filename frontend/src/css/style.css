@@ -4,6 +4,17 @@ body {
   text-align: center;
 }
 
+#alert-box {
+  display: inline-block;
+  padding-top: 15px;
+}
+
+#message {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 /* Subject css */
 
 /* Style the tabs */
