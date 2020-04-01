@@ -8,8 +8,6 @@ gem 'pry'
 # updated gems
 gem "nokogiri", ">= 1.10.8"
 
-gem "actionview", ">= 6.0.2.2"
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'
 # Use postgresql as the database for Active Record
